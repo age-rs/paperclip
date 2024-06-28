@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="actix-operation-meta.html" />
     
-    <link rel="prev" href="build-script.html" />
+    
+    <link rel="prev" href="compile-checks.html" />
     
 
     </head>
@@ -100,21 +102,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="examples.html">
-            
-                <a href="examples.html">
-            
-                    
-                    Examples
-            
-                </a>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.2.1" data-path="cli.html">
+        <li class="chapter " data-level="1.2" data-path="cli.html">
             
                 <a href="cli.html">
             
@@ -127,7 +115,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2" data-path="build-script.html">
+        <li class="chapter " data-level="1.3" data-path="build-script.html">
             
                 <a href="build-script.html">
             
@@ -138,14 +126,99 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="compile-checks.html">
+            
+                <a href="compile-checks.html">
+            
+                    
+                    Compile-time checks
+            
+                </a>
+            
+
+            
         </li>
     
-        <li class="chapter active" data-level="1.2.3" data-path="actix-plugin.html">
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="actix-plugin.html">
             
                 <a href="actix-plugin.html">
             
                     
                     Actix-web plugin
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="actix-operation-meta.html">
+            
+                <a href="actix-operation-meta.html">
+            
+                    
+                    Adding operation metadata
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="actix-status-codes.html">
+            
+                <a href="actix-status-codes.html">
+            
+                    
+                    Defining additional HTTP status codes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="actix-security.html">
+            
+                <a href="actix-security.html">
+            
+                    
+                    Defining security
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="actix-headers.html">
+            
+                <a href="actix-headers.html">
+            
+                    
+                    Defining headers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="actix-schema-defaults.html">
+            
+                <a href="actix-schema-defaults.html">
+            
+                    
+                    Setting schema defaults
             
                 </a>
             
@@ -203,35 +276,39 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="host-openapi-v2-spec-through-actix-web">Host OpenAPI v2 spec through actix-web</h1>
-<p>With <code>actix</code> feature enabled, paperclip exports an <strong>experimental</strong> plugin for <a href="https://github.com/actix/actix-web" target="_blank">actix-web</a> framework to host OpenAPI v2 spec for your APIs <em>automatically</em>. While it&apos;s not feature complete, you can rely on it to not break your actix-web flow.</p>
-<p>Let&apos;s start with a simple actix-web application. It has <code>actix-web</code> and <code>serde</code> for JSON&apos;ifying your APIs. Let&apos;s also add <code>paperclip</code> with <code>actix</code> feature.</p>
+                                <h1 id="host-openapi-spec-through-actix-web">Host OpenAPI spec through actix-web</h1>
+<p>With <code>actix4</code> feature enabled, paperclip exports a plugin for <a href="https://github.com/actix/actix-web" target="_blank">actix-web</a> framework to host OpenAPI v2 spec for your APIs <em>automatically</em>. While it&apos;s not feature complete, you can rely on it to not break your actix-web flow.</p>
+<p>Let&apos;s start with a simple actix-web application. It has <code>actix-web</code> and <code>serde</code> for JSON&apos;ifying your APIs. Let&apos;s also add <code>paperclip</code> with <code>actix4</code> feature.</p>
 <pre><code class="lang-toml"><span class="hljs-comment"># [package] ignored for brevity</span>
 <span class="hljs-section">
 [dependencies]</span>
-<span class="hljs-attr">actix-web</span> = <span class="hljs-string">&quot;2.0&quot;</span>
-<span class="hljs-comment"># The &quot;nightly&quot; feature can be specified if you&apos;re using nightly compiler. Even though</span>
+<span class="hljs-comment"># actix-web 2.0 is supported through &quot;actix2&quot; and &quot;actix2-nightly&quot; features</span>
+<span class="hljs-comment"># actix-web 3.0 is supported through &quot;actix3&quot; and &quot;actix3-nightly&quot; features</span>
+<span class="hljs-attr">actix-web</span> = <span class="hljs-string">&quot;4.0&quot;</span>
+<span class="hljs-comment"># The &quot;actix4-nightly&quot; feature can be specified if you&apos;re using nightly compiler. Even though</span>
 <span class="hljs-comment"># this plugin works smoothly with the nightly compiler, it also works in stable</span>
-<span class="hljs-comment"># channel (remove &quot;nightly&quot; feature in that case). There maybe compilation errors,</span>
+<span class="hljs-comment"># channel (replace &quot;actix4-nightly&quot; feature with &quot;actix4&quot; in that case). There maybe compilation errors,</span>
 <span class="hljs-comment"># but those can be fixed.</span>
-<span class="hljs-attr">paperclip</span> = { version = <span class="hljs-string">&quot;0.4&quot;</span>, features = [<span class="hljs-string">&quot;actix&quot;</span>, <span class="hljs-string">&quot;nightly&quot;</span>] }
-<span class="hljs-attr">serde</span> = <span class="hljs-string">&quot;1.0&quot;</span>
+<span class="hljs-comment"># Add the &quot;v3&quot; option if you want to expose an OpenAPI v3 document</span>
+<span class="hljs-attr">paperclip</span> = { version = <span class="hljs-string">&quot;0.8&quot;</span>, features = [<span class="hljs-string">&quot;actix4&quot;</span>] }
+<span class="hljs-attr">serde</span> = { version = <span class="hljs-string">&quot;1.0&quot;</span>, features = [<span class="hljs-string">&quot;derive&quot;</span>] }
 </code></pre>
 <p>Our <code>main.rs</code> looks like this:</p>
-<pre><code class="lang-rust"><span class="hljs-keyword">use</span> actix_web::{App, HttpServer, web::{<span class="hljs-keyword">self</span>, Json}};
+<pre><code class="lang-rust"><span class="hljs-keyword">use</span> actix_web::{App, HttpServer, Error, web::{<span class="hljs-keyword">self</span>, Json}};
 <span class="hljs-keyword">use</span> serde::{Serialize, Deserialize};
 
+<span class="hljs-comment">// Mark containers (body, query, parameter, etc.) like so...</span>
 <span class="hljs-meta">#[derive(Serialize, Deserialize)]</span>
 <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Pet</span></span> {
     name: <span class="hljs-built_in">String</span>,
     id: <span class="hljs-built_in">Option</span>&lt;<span class="hljs-keyword">i64</span>&gt;,
 }
 
-async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">echo_pet</span></span>(body: Json&lt;Pet&gt;) -&gt; <span class="hljs-built_in">Result</span>&lt;Json&lt;Pet&gt;, ()&gt; {
+async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">echo_pet</span></span>(body: Json&lt;Pet&gt;) -&gt; <span class="hljs-built_in">Result</span>&lt;Json&lt;Pet&gt;, Error&gt; {
     <span class="hljs-literal">Ok</span>(body)
 }
 
-<span class="hljs-meta">#[actix_rt::main]</span>
+<span class="hljs-meta">#[actix_web::main]</span>
 async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() -&gt; std::io::<span class="hljs-built_in">Result</span>&lt;()&gt; {
     HttpServer::new(|| App::new()
         .service(
@@ -243,30 +320,35 @@ async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span cla
 }
 </code></pre>
 <p>Now, let&apos;s modify it to use the plugin!</p>
-<pre><code class="lang-rust"><span class="hljs-keyword">use</span> actix_web::{App, HttpServer};
+<pre><code class="lang-rust"><span class="hljs-keyword">use</span> actix_web::{App, HttpServer, Error};
 <span class="hljs-keyword">use</span> paperclip::actix::{
     <span class="hljs-comment">// extension trait for actix_web::App and proc-macro attributes</span>
-    OpenApiExt, api_v2_schema, api_v2_operation,
+    OpenApiExt, Apiv2Schema, api_v2_operation,
+    <span class="hljs-comment">// If you prefer the macro syntax for defining routes, import the paperclip macros</span>
+    <span class="hljs-comment">// get, post, put, delete</span>
     <span class="hljs-comment">// use this instead of actix_web::web</span>
     web::{<span class="hljs-keyword">self</span>, Json},
 };
 <span class="hljs-keyword">use</span> serde::{Serialize, Deserialize};
 
 <span class="hljs-comment">// Mark containers (body, query, parameter, etc.) like so...</span>
-<span class="hljs-meta">#[api_v2_schema]</span>
-<span class="hljs-meta">#[derive(Serialize, Deserialize)]</span>
+<span class="hljs-meta">#[derive(Serialize, Deserialize, Apiv2Schema)]</span>
 <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Pet</span></span> {
+    <span class="hljs-comment">// You can optionaly add description for an individual property with the following line</span>
+    <span class="hljs-comment">/// Name of the pet</span>
     name: <span class="hljs-built_in">String</span>,
     id: <span class="hljs-built_in">Option</span>&lt;<span class="hljs-keyword">i64</span>&gt;,
 }
 
 <span class="hljs-comment">// Mark operations like so...</span>
 <span class="hljs-meta">#[api_v2_operation]</span>
-async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">echo_pet</span></span>(body: Json&lt;Pet&gt;) -&gt; <span class="hljs-built_in">Result</span>&lt;Json&lt;Pet&gt;, ()&gt; {
+<span class="hljs-comment">// Add the next line if you want to use the macro syntax</span>
+<span class="hljs-comment">// #[post(&quot;/pets&quot;)]</span>
+async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">echo_pet</span></span>(body: Json&lt;Pet&gt;) -&gt; <span class="hljs-built_in">Result</span>&lt;Json&lt;Pet&gt;, Error&gt; {
     <span class="hljs-literal">Ok</span>(body)
 }
 
-<span class="hljs-meta">#[actix_rt::main]</span>
+<span class="hljs-meta">#[actix_web::main]</span>
 async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() -&gt; std::io::<span class="hljs-built_in">Result</span>&lt;()&gt; {
     HttpServer::new(|| App::new()
         <span class="hljs-comment">// Record services and routes from this line.</span>
@@ -276,14 +358,20 @@ async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span cla
             web::resource(<span class="hljs-string">&quot;/pets&quot;</span>)
                 .route(web::post().to(echo_pet))
         )
-        <span class="hljs-comment">// Mount the JSON spec at this path.</span>
-        .with_json_spec_at(<span class="hljs-string">&quot;/api/spec&quot;</span>)
+        <span class="hljs-comment">// Or just .service(echo_pet) if you&apos;re using the macro syntax</span>
+        <span class="hljs-comment">// Mount the v2/Swagger JSON spec at this path.</span>
+        .with_json_spec_at(<span class="hljs-string">&quot;/api/spec/v2&quot;</span>)
+        <span class="hljs-comment">// If you added the &quot;v3&quot; feature, you can also include</span>
+        <span class="hljs-comment">// .with_json_spec_v3_at(&quot;/api/spec/v3&quot;)</span>
 
         <span class="hljs-comment">// ... or if you wish to build the spec by yourself...</span>
 
         <span class="hljs-comment">// .with_raw_json_spec(|app, spec| {</span>
         <span class="hljs-comment">//     app.route(&quot;/api/spec&quot;, web::get().to(move || {</span>
-        <span class="hljs-comment">//         actix_web::HttpResponse::Ok().json(&amp;spec)</span>
+        <span class="hljs-comment">//         let spec = spec.clone();</span>
+        <span class="hljs-comment">//         async move {</span>
+        <span class="hljs-comment">//             paperclip::actix::HttpResponseWrapper(actix_web::HttpResponse::Ok().json(&amp;spec))</span>
+        <span class="hljs-comment">//         }</span>
         <span class="hljs-comment">//     }))</span>
         <span class="hljs-comment">// })</span>
 
@@ -295,22 +383,27 @@ async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span cla
 </code></pre>
 <p>We have:</p>
 <ul>
-<li>Imported <code>OpenApiExt</code> extension trait for <code>actix_web::App</code> along with <code>api_v2_schema</code> and <code>api_v2_operation</code> proc macro attributes.</li>
+<li>Imported <code>OpenApiExt</code> extension trait for <code>actix_web::App</code> along with <code>Apiv2Schema</code> derive macro and <code>api_v2_operation</code> proc macro attributes.</li>
 <li>Switched from <code>actix_web::web</code> to <code>paperclip::actix::web</code>.</li>
 <li>Marked our <code>Pet</code> struct and <code>add_pet</code> function as OpenAPI-compatible schema and operation using proc macro attributes.</li>
 <li>Transformed our <code>actix_web::App</code> to a wrapper using <code>.wrap_api()</code>.</li>
-<li>Mounted the JSON spec at a relative path using <code>.with_json_spec_at(&quot;/api/spec&quot;)</code>.</li>
+<li>Optionally switched to Paperclip&apos;s macros instead of the actix-web route macros</li>
+<li>Mounted the JSON spec at a relative path using <code>.with_json_spec_at(&quot;/api/spec/v2&quot;)</code> (and optionally a v3 spec as well).</li>
 <li>Built (using <code>.build()</code>) and passed the original <code>App</code> back to actix-web.</li>
 </ul>
 <p>Note that we never touched the service, resources, routes or anything else! This means that our original actix-web flow is unchanged.</p>
-<p>Now, testing with <strong>cURL</strong>:</p>
-<pre><code>curl http://localhost:8080/api/spec
-</code></pre><p>... we get the swagger spec as a JSON!</p>
-<pre><code class="lang-js"><span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> Formatted for clarity</span>
-{
+<p>Now you can check the API with the following <strong>cURL</strong> command:</p>
+<pre><code class="lang-sh">curl -X POST http://localhost:8080/pets -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> <span class="hljs-_">-d</span> <span class="hljs-string">&apos;{&quot;id&quot;:1,&quot;name&quot;:&quot;Felix&quot;}&apos;</span>
+</code></pre>
+<p>And see the specs with this:</p>
+<pre><code class="lang-sh">curl http://localhost:8080/api/spec/v2
+</code></pre>
+<p>... we get the swagger spec as a JSON!</p>
+<pre><code class="lang-json">{
   <span class="hljs-string">&quot;swagger&quot;</span>: <span class="hljs-string">&quot;2.0&quot;</span>,
   <span class="hljs-string">&quot;definitions&quot;</span>: {
     <span class="hljs-string">&quot;Pet&quot;</span>: {
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>,
       <span class="hljs-string">&quot;properties&quot;</span>: {
         <span class="hljs-string">&quot;id&quot;</span>: {
           <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
@@ -333,16 +426,16 @@ async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span cla
               <span class="hljs-string">&quot;$ref&quot;</span>: <span class="hljs-string">&quot;#/definitions/Pet&quot;</span>
             }
           }
-        }
-      },
-      <span class="hljs-string">&quot;parameters&quot;</span>: [{
-        <span class="hljs-string">&quot;in&quot;</span>: <span class="hljs-string">&quot;body&quot;</span>,
-        <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;body&quot;</span>,
-        <span class="hljs-string">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-string">&quot;schema&quot;</span>: {
-          <span class="hljs-string">&quot;$ref&quot;</span>: <span class="hljs-string">&quot;#/definitions/Pet&quot;</span>
-        }
-      }]
+        },
+        <span class="hljs-string">&quot;parameters&quot;</span>: [{
+          <span class="hljs-string">&quot;in&quot;</span>: <span class="hljs-string">&quot;body&quot;</span>,
+          <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;body&quot;</span>,
+          <span class="hljs-string">&quot;required&quot;</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-string">&quot;schema&quot;</span>: {
+            <span class="hljs-string">&quot;$ref&quot;</span>: <span class="hljs-string">&quot;#/definitions/Pet&quot;</span>
+          }
+        }]
+      }
     }
   },
   <span class="hljs-string">&quot;info&quot;</span>: {
@@ -352,61 +445,7 @@ async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span cla
 }
 </code></pre>
 <p>Similarly, if we were to use other extractors like <code>web::Query&lt;T&gt;</code>, <code>web::Form&lt;T&gt;</code> or <code>web::Path</code>, the plugin will emit the corresponding specification as expected.</p>
-<h4 id="manually-defining-additional-response-codes">Manually defining additional response codes</h4>
-<p>There is a macro <code>api_v2_errors</code> which helps to manually add error (non-2xx) response codes.</p>
-<pre><code class="lang-rust"><span class="hljs-keyword">use</span> paperclip::actix::api_v2_errors;
-
-<span class="hljs-meta">#[api_v2_errors(
-    code=400,
-    code=401, description=<span class="hljs-meta-string">&quot;Unauthorized: Can&apos;t read session from header&quot;</span>,
-    code=500,
-)]</span>
-<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">MyError</span></span> {
-    <span class="hljs-comment">/* ... */</span>
-}
-</code></pre>
-<p>You can now use this error in handlers and they&apos;ll emit operations containing those response codes.</p>
-<pre><code class="lang-rust"><span class="hljs-meta">#[api_v2_operation]</span>
-async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">my_handler</span></span>() -&gt; <span class="hljs-built_in">Result</span>&lt;(), MyError&gt; {
-    <span class="hljs-comment">/* ... */</span>
-}
-</code></pre>
-<h4 id="defining-security">Defining security</h4>
-<p>Use <code>Apiv2Security</code> derive macro for struct used as handler parameter to have this handler marked as requiring authorization.</p>
-<pre><code class="lang-rust"><span class="hljs-keyword">use</span> paperclip::actix::Apiv2Security;
-
-<span class="hljs-meta">#[derive(Apiv2Security)]</span>
-<span class="hljs-meta">#[openapi(
-  apiKey,
-  in = <span class="hljs-meta-string">&quot;header&quot;</span>,
-  name = <span class="hljs-meta-string">&quot;Authorization&quot;</span>,
-  description = <span class="hljs-meta-string">&quot;Use format &apos;Bearer TOKEN&apos;&quot;</span>
-)]</span>
-<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">AccessToken</span></span>;
-
-<span class="hljs-keyword">impl</span> FromRequest <span class="hljs-keyword">for</span> Accesstoken { <span class="hljs-comment">/*...*/</span> }
-
-<span class="hljs-meta">#[api_v2_operation]</span>
-async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">my_handler</span></span>(access_token: AccessToken) -&gt; <span class="hljs-built_in">Result</span> {
-    <span class="hljs-comment">/*...*/</span>
-}
-</code></pre>
-<p>First parameter is the type of security, currently supported types are &quot;apiKey&quot; and &quot;oauth2&quot;. Possible parameters are <code>alias</code>, <code>description</code>, <code>name</code>, <code>in</code>, <code>flow</code>, <code>auth_url</code>, <code>token_url</code> or <code>parent</code>.</p>
-<p>Use <code>alias</code> parameter if you need to have two different security definitions of the same type.</p>
-<p>If you need to define scopes for <code>oauth2</code>, use <code>parent</code> attribute:</p>
-<pre><code class="lang-rust"><span class="hljs-meta">#[derive(Apiv2Security, Deserialize)]</span>
-<span class="hljs-meta">#[openapi(
-  oauth2,
-  auth_url = <span class="hljs-meta-string">&quot;http://example.com/&quot;</span>,
-  token_url = <span class="hljs-meta-string">&quot;http://example.com/token&quot;</span>,
-  flow = <span class="hljs-meta-string">&quot;password&quot;</span>
-)]</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">OAuth2Access</span></span>;
-
-<span class="hljs-meta">#[derive(Apiv2Security, Deserialize)]</span>
-<span class="hljs-meta">#[openapi(parent = <span class="hljs-meta-string">&quot;OAuth2Access&quot;</span>, scopes(<span class="hljs-meta-string">&quot;pets.read&quot;</span>, <span class="hljs-meta-string">&quot;pets.write&quot;</span>))]</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">PetScopeAccess</span></span>;
-</code></pre>
+<p>Description for an individual property uses Rust <a href="https://doc.rust-lang.org/reference/comments.html" target="_blank">doc comments</a> technology.</p>
 <h4 id="known-limitations">Known limitations</h4>
 <ul>
 <li><strong>Enums:</strong> OpenAPI (v2) itself supports using simple enums (i.e., with unit variants), but Rust and serde has support for variants with fields and tuples. I still haven&apos;t looked deep enough either to say whether this can/cannot be done in OpenAPI or find an elegant way to represent this in OpenAPI.</li>
@@ -426,15 +465,11 @@ async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span cla
 <td><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#parameter-object" target="_blank">Parameter</a></td>
 <td>Non-body parameters allowing validations like <code>allowEmptyValue</code>, <code>collectionFormat</code>, <code>items</code>, etc.</td>
 </tr>
-<tr>
-<td><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#parameter-object" target="_blank">Parameter</a></td>
-<td>Headers as parameters.</td>
-</tr>
 </tbody>
 </table>
 <h4 id="performance-implications">Performance implications?</h4>
-<p>Even though we use some wrappers and generate schema structs for building the spec, we do this only once i.e., until the <code>.build()</code> function call. At runtime, it&apos;s basically an <a href="https://doc.rust-lang.org/std/sync/struct.Arc.html" target="_blank"><code>Arc</code></a> deref and <a href="https://docs.rs/parking_lot/*/parking_lot/type.RwLock.html" target="_blank"><code>RwLock</code></a> read, which is quite fast!</p>
-<p>We also add a wrapper to blocks in functions tagged with <code>#[api_v2_operation]</code>, but those wrappers are unit structs and the code eventually gets optimized away anyway.</p>
+<p>Even though we use some wrappers and generate schema structs for building the spec, we do this only once i.e., until the <code>.build()</code> function call. At runtime, it&apos;s basically a pointer read, which is quite fast!</p>
+<p>We also add wrappers to blocks in functions tagged with <code>#[api_v2_operation]</code>, but those wrappers follow the <a href="https://doc.rust-lang.org/stable/book/ch19-03-advanced-traits.html#using-the-newtype-pattern-to-implement-external-traits-on-external-types" target="_blank">Newtype pattern</a> and the code eventually gets optimized away anyway.</p>
 
                                 
                                 </section>
@@ -462,10 +497,14 @@ async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span cla
 
             
                 
-                <a href="build-script.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Build script">
+                <a href="compile-checks.html" class="navigation navigation-prev " aria-label="Previous page: Compile-time checks">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="actix-operation-meta.html" class="navigation navigation-next " aria-label="Next page: Adding operation metadata">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -474,7 +513,7 @@ async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span cla
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Actix-web plugin","level":"1.2.3","depth":2,"previous":{"title":"Build script","level":"1.2.2","depth":2,"path":"build-script.md","ref":"build-script.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"actix-plugin.md","mtime":"2020-06-13T16:56:19.120Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-06-13T17:02:14.084Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Actix-web plugin","level":"1.4","depth":1,"next":{"title":"Adding operation metadata","level":"1.4.1","depth":2,"path":"actix-operation-meta.md","ref":"actix-operation-meta.md","articles":[]},"previous":{"title":"Compile-time checks","level":"1.3.1","depth":2,"path":"compile-checks.md","ref":"compile-checks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"actix-plugin.md","mtime":"2024-06-28T12:06:24.503Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-06-28T12:07:52.050Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

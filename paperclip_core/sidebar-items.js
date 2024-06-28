@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["ValidationError","Errors related to spec validation."]],"mod":[["im","Interior mutability stuff."],["v2","Core types and traits associated with the OpenAPI v2 specification."]]});
+window.SIDEBAR_ITEMS = {"enum":["ValidationError"],"mod":["im","util","v2","v3"]};
